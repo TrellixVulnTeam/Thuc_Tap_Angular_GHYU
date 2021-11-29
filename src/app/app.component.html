@@ -1,0 +1,60 @@
+<div>
+  <h1>Manager Products</h1>
+  <button nz-button [nzType]="'primary'" (click)="showModal()">
+    <span>Add New Item</span>
+  </button>
+
+  <button nz-button [nzType]="'primary'" (click)="onRefresh()">
+    <span>Refresh</span>
+  </button>
+  <div>
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmitSearch()">
+      <label for="nameFind">You are finding: </label>
+      <input id="nameFind" type="text" formControlName="nameFind" />
+
+      <button type="submit">Search</button>
+    </form>
+  </div>
+
+  <div>
+    <em>
+      <h5>Please Choose Group By:</h5>
+      <select id="nameFind">
+        <option value="0">a-z</option>
+        <option value="1">z-a</option>
+      </select>
+    </em>
+
+  </div>
+
+  <table>
+    <tr>
+      <th>id</th>
+      <th>Name</th>
+      <th>Event</th>
+    </tr>
+    <tr *ngFor="let product of Products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.nameProduct }}</td>
+      <td><button (click)="onDeleteProduct(product.id)">Delete</button></td>
+      <td><button (click)="onUpdateProduct(product.id)">Update</button></td>
+    </tr>
+  </table>
+
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="{{ title() }}"
+    footer="null"
+    closable="false"
+    nzCancelDisabled="true"
+  >
+    <ng-container *nzModalContent>
+      <form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+        <label for="nameProduct">Name Product: </label>
+        <input id="nameProduct" type="text" formControlName="nameProduct" />
+
+        <button type="submit">Save</button>
+      </form>
+    </ng-container>
+  </nz-modal>
+</div>
